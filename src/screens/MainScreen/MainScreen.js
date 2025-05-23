@@ -5,12 +5,11 @@ import { Coreographic } from "../../components/Coreographics/Coreographics";
 import { Groups } from "../../components/Groups/Groups";
 import { useState } from "react";
 
-export default function MainScreen() {
+export default function MainScreen({navigation}) {
   const [numberPage, setNumberPage] = useState(0);
-  console.log("Hola Mundo")
-  const handleNewPage = (newPage) =>{
-    console.log(newPage)
-    setNumberPage(newPage)
+ 
+  const handlePress = () =>{
+    navigation.navigate("Coreo")
   }
 
   return (
@@ -18,36 +17,40 @@ export default function MainScreen() {
       <View style={styles.header}>
         <Icon name="bars" size={25} color={"#fff"}></Icon>
         <Text style={styles.text}>Coreográficas</Text>
-        <Icon name="plus" size={25} color={"#fff"}></Icon>
+        <Icon name="plus" size={25} color={"#fff"} onPress={handlePress}></Icon>
       </View>
 
       <View style={styles.main}>
         {numberPage === 0 ? 
-        <TouchableOpacity onPress={()=> handleNewPage(0)}>
+   
         <Coreographic/>
-        </TouchableOpacity> : 
-        <TouchableOpacity onPress={()=>handleNewPage(1)}>
+       : 
+   
           <Groups/>
-        </TouchableOpacity>
+       
         }
       </View>
 
       <View style={styles.footer}>
         <View style={styles.footerGroups}>
+          <TouchableOpacity onPress={()=>setNumberPage(0)} style={styles.footerGroups}>
           {numberPage != 0 ? (
-            <Icon name="table" size={20} color={"#727373"}></Icon>
+            <Icon name="table" size={20} color={"#727373"} ></Icon>
           ) : (
             <Icon name="table" size={20} color={"#fff"}></Icon>
           )}
-          <Text style={styles.footerText}>Coreografias</Text>
+          <Text style={styles.footerText}>Coreografías</Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.footerGroups}>
+          <TouchableOpacity onPress={()=>setNumberPage(1)} style={styles.footerGroups}>
           {numberPage == 0 ? (
-            <Icon name="users" size={20} color={"#727373"}></Icon>
+            <Icon name="users" size={20} color={"#727373"} ></Icon>
           ) : (
             <Icon name="users" size={20} color={"#fff"}></Icon>
           )}
           <Text style={styles.footerText}>Grupos</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
